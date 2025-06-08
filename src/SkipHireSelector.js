@@ -317,24 +317,6 @@ const SkipHireSelector = () => {
 
             {/* Main Content */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {/* Header */}
-                <div className="text-center mb-8">
-                    <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-                        Choose Your Skip Size
-                    </h1>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-4">
-                        Select the skip size that best suits your needs
-                    </p>
-                    <button
-                        onClick={() => setShowHelp(!showHelp)}
-                        className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium"
-                    >
-                        <HelpCircle className="w-4 h-4 mr-1" />
-                        Need help choosing?
-                    </button>
-                </div>
-
-
                 {/* Filters and Sorting */}
                 <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
                     <div className="flex flex-wrap items-center justify-between gap-4">
@@ -390,6 +372,15 @@ const SkipHireSelector = () => {
                         <div className="text-sm text-gray-500">
                             Scroll to see all options →
                         </div>
+                    </div>
+                    <div className="flex items-center mb-4">
+                        <button
+                            onClick={() => setShowHelp(!showHelp)}
+                            className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium"
+                        >
+                            <HelpCircle className="w-4 h-4 mr-1" />
+                            Need help choosing?
+                        </button>
                     </div>
 
                     <div className="relative">
