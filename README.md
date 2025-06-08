@@ -1,68 +1,80 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Skip Hire Selector - Design Guide
 
-## Available Scripts
+## Design Approach
 
-In the project directory, you can run:
+This component helps customers choose skip sizes with a focus on **simplicity**, **trust**, and **mobile-first experience**.
 
-### `npm start`
+## Key Design Decisions
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 1. Horizontal Scroll Layout
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**Why**: Better for mobile users and easier comparison shopping
 
-### `npm test`
+- Users can swipe between options naturally
+- Each skip gets equal attention
+- Less overwhelming than a grid of options
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Consolidated Header/Filter Bar
 
-### `npm run build`
+**Why**: Saves space and puts help where users expect it
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Reduces scrolling on mobile
+- Help button is easily accessible when confused
+- Clean, organized layout
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### 3. Modal Help System
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Why**: Doesn't interrupt the selection flow
 
-### `npm run eject`
+- Users keep their place while learning
+- Better use of mobile screen space
+- Optional - doesn't slow down confident users
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 4. Color-Coded Status Badges
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Why**: Quick visual scanning without reading
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Green = Good (road legal, heavy waste OK)
+- Yellow/Red = Limitations (restrictions)
+- Purple = Time info (hire period)
+- Blue = Pricing
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Visual Design
 
-## Learn More
+### Colors
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Blue (#2563eb)**: Trust and reliability
+- **Green**: Positive features
+- **Yellow/Red**: Warnings and restrictions
+- **Purple**: Time-based information
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Layout Principles
 
-### Code Splitting
+- **Mobile-first**: Designed for phones, enhanced for desktop
+- **Clear hierarchy**: Important info stands out
+- **Consistent spacing**: Clean, organized appearance
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## User Experience Goals
 
-### Analyzing the Bundle Size
+1. **Easy Comparison**: Horizontal scroll lets users compare options easily
+2. **Build Trust**: Transparent pricing and clear information
+3. **Reduce Confusion**: Help available but not intrusive
+4. **Mobile Optimized**: Works great on phones where most users browse
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Business Benefits
 
-### Making a Progressive Web App
+- **Higher Conversions**: Easier selection process
+- **Fewer Support Calls**: Self-service help system
+- **Better Mobile Experience**: Captures mobile traffic effectively
+- **Professional Image**: Clean design builds trust
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## Technical Highlights
 
-### Advanced Configuration
+- **Responsive Design**: Works on all screen sizes
+- **Fast Performance**: Client-side filtering for instant results
+- **Accessible**: Works with screen readers and keyboards
+- **Error Handling**: Graceful fallbacks when things go wrong
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+---
 
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+**Bottom Line**: This design makes it easy for customers to find and select the right skip size while building confidence in the service, especially on mobile devices where most browsing happens.
