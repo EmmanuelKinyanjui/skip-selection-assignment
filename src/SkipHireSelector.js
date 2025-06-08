@@ -63,7 +63,6 @@ const SkipHireSelector = () => {
                         perTonneCost: skip.per_tonne_cost,
                         image: `https://yozbrydxdlcxghkphhtq.supabase.co/storage/v1/object/public/skips/skip-sizes/${skip.size}-yarder-skip.jpg`,
                         restrictions: [],
-                        popular: skip.size === 6, // Mark 6-yard as popular
                         roadLegal: skip.allowed_on_road,
                         heavyWasteSuitable: skip.allows_heavy_waste,
                         capacityInfo
@@ -293,126 +292,149 @@ const SkipHireSelector = () => {
                     )}
                 </div>
 
-                {/* Skip Options Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    {filteredSkips.map((skip) => (
-                        <div
-                            key={skip.id}
-                            className={`relative bg-white rounded-xl shadow-sm border-2 transition-all duration-200 hover:shadow-lg cursor-pointer ${selectedSkip === skip.id
-                                ? 'border-blue-600 ring-2 ring-blue-100'
-                                : 'border-gray-200 hover:border-gray-300'
-                                } ${skip.popular ? 'ring-2 ring-yellow-100' : ''}`}
-                            onClick={() => handleSkipSelect(skip.id)}
-                        >
-                            {/* Popular Badge */}
-                            {skip.popular && (
-                                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                                    <span className="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-semibold">
-                                        Most Popular
-                                    </span>
-                                </div>
-                            )}
-
-                            {/* Skip Image */}
-                            <div className="relative overflow-hidden rounded-t-xl">
-                                <img
-                                    src={skip.image}
-                                    alt={`${skip.sizeLabel} skip`}
-                                    className="w-full h-48 object-cover"
-                                    onError={(e) => {
-                                        e.target.style.display = 'none';
-                                        e.target.nextSibling.style.display = 'flex';
-                                    }}
-                                />
-                                <div className="w-full h-48 bg-gradient-to-br from-yellow-400 to-yellow-600 items-center justify-center hidden">
-                                    <div className="text-center">
-                                        <div className="w-20 h-12 bg-yellow-500 rounded-lg mx-auto mb-2 shadow-lg transform -rotate-12"></div>
-                                        <div className="text-blue-900 font-bold text-sm">WE WANT WASTE</div>
-                                    </div>
-                                </div>
-                                <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                    {skip.sizeLabel}
-                                </div>
-                            </div>
-
-                            {/* Content */}
-                            <div className="p-6">
-                                <div className="flex justify-between items-start mb-3">
-                                    <div className="flex-1">
-                                        <h3 className="text-xl font-bold text-gray-900 mb-1">
-                                            {skip.sizeLabel} Skip
-                                        </h3>
-                                        <p className="text-sm text-gray-600">{skip.period}</p>
-                                    </div>
-                                    {renderPriceDetails(skip)}
-                                </div>
-
-                                {/* Capacity Information */}
-                                <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                                    <div className="text-sm">
-                                        <div className="font-medium text-gray-900 mb-1">Capacity</div>
-                                        <div className="text-gray-600">≈ {skip.capacityInfo.binBags} bin bags</div>
-                                        <div className="text-gray-500 text-xs mt-1">{skip.capacityInfo.description}</div>
-                                    </div>
-                                </div>
-
-                                {/* Status Indicators */}
-                                <div className="mb-4 flex flex-wrap gap-2">
-                                    {/* Hire Period Indicator - Added this block */}
-                                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                                        <Calendar className="w-3 h-3 mr-1" />
-                                        {skip.hirePeriodDays} Day{skip.hirePeriodDays !== 1 ? 's' : ''}
-                                    </span>
-                                    
-                                    {skip.roadLegal && (
-                                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                            <CheckCircle className="w-3 h-3 mr-1" />
-                                            Road Legal
-                                        </span>
-                                    )}
-                                    {skip.heavyWasteSuitable && (
-                                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                            <CheckCircle className="w-3 h-3 mr-1" />
-                                            Heavy Waste OK
-                                        </span>
-                                    )}
-                                    {!skip.roadLegal && (
-                                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                            <AlertTriangle className="w-3 h-3 mr-1" />
-                                            Not Road Legal
-                                        </span>
-                                    )}
-                                    {!skip.heavyWasteSuitable && (
-                                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                            <AlertTriangle className="w-3 h-3 mr-1" />
-                                            No Heavy Waste
-                                        </span>
-                                    )}
-                                </div>
-
-                                {/* Select Button */}
-                                <button
-                                    className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center ${selectedSkip === skip.id
-                                        ? 'bg-blue-600 text-white hover:bg-blue-700'
-                                        : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
-                                        }`}
-                                >
-                                    {selectedSkip === skip.id ? (
-                                        <>
-                                            <CheckCircle className="w-5 h-5 mr-2" />
-                                            Selected
-                                        </>
-                                    ) : (
-                                        <>
-                                            Select This Skip
-                                            <ArrowRight className="w-5 h-5 ml-2" />
-                                        </>
-                                    )}
-                                </button>
-                            </div>
+                {/* Skip Options Horizontal Scroll */}
+                <div className="mb-8">
+                    <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-xl font-semibold text-gray-900">Available Skip Sizes</h2>
+                        <div className="text-sm text-gray-500">
+                            Scroll to see all options →
                         </div>
-                    ))}
+                    </div>
+
+                    <div className="relative">
+                        {/* Scroll container */}
+                        <div className="flex overflow-x-auto pb-4 space-x-6 scrollbar-hide snap-x snap-mandatory">
+                            {filteredSkips.map((skip) => (
+                                <div
+                                    key={skip.id}
+                                    className={`relative bg-white rounded-xl shadow-sm border-2 transition-all duration-200 hover:shadow-lg cursor-pointer flex-shrink-0 w-80 snap-start ${selectedSkip === skip.id
+                                        ? 'border-blue-600 ring-2 ring-blue-100'
+                                        : 'border-gray-200 hover:border-gray-300'
+                                        } ${skip.popular ? 'ring-2 ring-yellow-100' : ''}`}
+                                    onClick={() => handleSkipSelect(skip.id)}
+                                >
+                                    {/* Popular Badge */}
+                                    {skip.popular && (
+                                        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                                            <span className="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-semibold">
+                                                Most Popular
+                                            </span>
+                                        </div>
+                                    )}
+
+                                    {/* Skip Image */}
+                                    <div className="relative overflow-hidden rounded-t-xl">
+                                        <img
+                                            src={skip.image}
+                                            alt={`${skip.sizeLabel} skip`}
+                                            className="w-full h-48 object-cover"
+                                            onError={(e) => {
+                                                e.target.style.display = 'none';
+                                                e.target.nextSibling.style.display = 'flex';
+                                            }}
+                                        />
+                                        <div className="w-full h-48 bg-gradient-to-br from-yellow-400 to-yellow-600 items-center justify-center hidden">
+                                            <div className="text-center">
+                                                <div className="w-20 h-12 bg-yellow-500 rounded-lg mx-auto mb-2 shadow-lg transform -rotate-12"></div>
+                                                <div className="text-blue-900 font-bold text-sm">WE WANT WASTE</div>
+                                            </div>
+                                        </div>
+                                        <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                            {skip.sizeLabel}
+                                        </div>
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="p-6">
+                                        <div className="flex justify-between items-start mb-3">
+                                            <div className="flex-1">
+                                                <h3 className="text-xl font-bold text-gray-900 mb-1">
+                                                    {skip.sizeLabel} Skip
+                                                </h3>
+                                                <p className="text-sm text-gray-600">{skip.period}</p>
+                                            </div>
+                                            {renderPriceDetails(skip)}
+                                        </div>
+
+                                        {/* Capacity Information */}
+                                        <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                                            <div className="text-sm">
+                                                <div className="font-medium text-gray-900 mb-1">Capacity</div>
+                                                <div className="text-gray-600">≈ {skip.capacityInfo.binBags} bin bags</div>
+                                                <div className="text-gray-500 text-xs mt-1">{skip.capacityInfo.description}</div>
+                                            </div>
+                                        </div>
+
+                                        {/* Status Indicators */}
+                                        <div className="mb-4 flex flex-wrap gap-2">
+                                            {/* Hire Period Indicator */}
+                                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                                <Calendar className="w-3 h-3 mr-1" />
+                                                {skip.hirePeriodDays} Day{skip.hirePeriodDays !== 1 ? 's' : ''}
+                                            </span>
+
+                                            {skip.roadLegal && (
+                                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                    <CheckCircle className="w-3 h-3 mr-1" />
+                                                    Road Legal
+                                                </span>
+                                            )}
+                                            {skip.heavyWasteSuitable && (
+                                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                    <CheckCircle className="w-3 h-3 mr-1" />
+                                                    Heavy Waste OK
+                                                </span>
+                                            )}
+                                            {!skip.roadLegal && (
+                                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                                    <AlertTriangle className="w-3 h-3 mr-1" />
+                                                    Not Road Legal
+                                                </span>
+                                            )}
+                                            {!skip.heavyWasteSuitable && (
+                                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                    <AlertTriangle className="w-3 h-3 mr-1" />
+                                                    No Heavy Waste
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        {/* Select Button */}
+                                        <button
+                                            className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center ${selectedSkip === skip.id
+                                                ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                                : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                                                }`}
+                                        >
+                                            {selectedSkip === skip.id ? (
+                                                <>
+                                                    <CheckCircle className="w-5 h-5 mr-2" />
+                                                    Selected
+                                                </>
+                                            ) : (
+                                                <>
+                                                    Select This Skip
+                                                    <ArrowRight className="w-5 h-5 ml-2" />
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Scroll indicators (optional) */}
+                        <div className="flex justify-center mt-4 space-x-2">
+                            {filteredSkips.map((_, index) => (
+                                <div
+                                    key={index}
+                                    className="w-2 h-2 rounded-full bg-gray-300"
+                                ></div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
+
 
                 {/* No Results Message */}
                 {filteredSkips.length === 0 && (
