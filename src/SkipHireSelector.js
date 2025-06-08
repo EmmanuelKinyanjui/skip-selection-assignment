@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, AlertTriangle, ArrowRight, Loader2, Filter, HelpCircle, Calendar } from 'lucide-react';
+import { CheckCircle, AlertTriangle, ArrowRight, Loader2, Filter, HelpCircle, Calendar, X } from 'lucide-react';
 
 const SkipHireSelector = () => {
     const [selectedSkip, setSelectedSkip] = useState(null);
@@ -168,6 +168,117 @@ const SkipHireSelector = () => {
         );
     }
 
+    // Help Modal Component
+    const HelpModal = () => {
+        if (!showHelp) return null;
+
+        return (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+
+                <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+                    {/* Modal Header */}
+                    <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                        <div className="flex items-center">
+                            <HelpCircle className="w-6 h-6 text-blue-600 mr-3" />
+                            <h2 className="text-2xl font-bold text-gray-900">Skip Size Guide</h2>
+                        </div>
+                        <button
+                            onClick={() => setShowHelp(false)}
+                            className="text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                        >
+                            <X className="w-6 h-6" />
+                        </button>
+                    </div>
+
+                    {/* Modal Content */}
+                    <div className="p-6">
+                        <p className="text-gray-600 mb-6">
+                            Choose the right skip size for your project. Here's a guide to help you decide:
+                        </p>
+
+                        {/* Skip Size Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                            <div className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 p-6 rounded-lg">
+                                <div className="text-green-800 font-bold text-lg mb-2">Small Projects</div>
+                                <div className="text-green-700 font-medium mb-3">4-6 Yard Skips</div>
+                                <ul className="text-green-600 text-sm space-y-1">
+                                    <li>• Bathroom renovation</li>
+                                    <li>• Small garden clearance</li>
+                                    <li>• Decluttering rooms</li>
+                                    <li>• Small DIY projects</li>
+                                </ul>
+                                <div className="mt-4 text-xs text-green-500">
+                                    Equivalent to 30-50 bin bags
+                                </div>
+                            </div>
+
+                            <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 p-6 rounded-lg">
+                                <div className="text-blue-800 font-bold text-lg mb-2">Medium Projects</div>
+                                <div className="text-blue-700 font-medium mb-3">8-10 Yard Skips</div>
+                                <ul className="text-blue-600 text-sm space-y-1">
+                                    <li>• Kitchen renovation</li>
+                                    <li>• House clearance</li>
+                                    <li>• Garden landscaping</li>
+                                    <li>• Garage clearout</li>
+                                </ul>
+                                <div className="mt-4 text-xs text-blue-500">
+                                    Equivalent to 60-80 bin bags
+                                </div>
+                            </div>
+
+                            <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 p-6 rounded-lg">
+                                <div className="text-purple-800 font-bold text-lg mb-2">Large Projects</div>
+                                <div className="text-purple-700 font-medium mb-3">12+ Yard Skips</div>
+                                <ul className="text-purple-600 text-sm space-y-1">
+                                    <li>• Construction work</li>
+                                    <li>• Major renovations</li>
+                                    <li>• Commercial projects</li>
+                                    <li>• Large clearances</li>
+                                </ul>
+                                <div className="mt-4 text-xs text-purple-500">
+                                    Equivalent to 90+ bin bags
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Additional Tips */}
+                        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                            <h3 className="font-semibold text-yellow-800 mb-3">💡 Pro Tips</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-yellow-700">
+                                <div>
+                                    <div className="font-medium mb-1">Not sure about size?</div>
+                                    <div>It's often better to go one size larger than you think you need.</div>
+                                </div>
+                                <div>
+                                    <div className="font-medium mb-1">Heavy materials?</div>
+                                    <div>Soil, concrete, and bricks are heavy - choose a smaller skip.</div>
+                                </div>
+                                <div>
+                                    <div className="font-medium mb-1">Road placement?</div>
+                                    <div>Check if you need a permit for skips placed on public roads.</div>
+                                </div>
+                                <div>
+                                    <div className="font-medium mb-1">Mixed waste?</div>
+                                    <div>General household waste can be mixed, but some items are prohibited.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Modal Footer */}
+                    <div className="flex justify-end p-6 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+                        <button
+                            onClick={() => setShowHelp(false)}
+                            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
+                        >
+                            Got it, thanks!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Progress Bar */}
@@ -223,26 +334,6 @@ const SkipHireSelector = () => {
                     </button>
                 </div>
 
-                {/* Help Section */}
-                {showHelp && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-                        <h3 className="text-lg font-semibold text-blue-900 mb-4">Skip Size Guide</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
-                            <div className="bg-white p-4 rounded">
-                                <div className="font-medium text-gray-900">Small Projects (4-6 yards)</div>
-                                <div className="text-gray-600 mt-1">Bathroom renovation, small clearance, garden tidy</div>
-                            </div>
-                            <div className="bg-white p-4 rounded">
-                                <div className="font-medium text-gray-900">Medium Projects (8-10 yards)</div>
-                                <div className="text-gray-600 mt-1">Kitchen renovation, house clearance, landscaping</div>
-                            </div>
-                            <div className="bg-white p-4 rounded">
-                                <div className="font-medium text-gray-900">Large Projects (12+ yards)</div>
-                                <div className="text-gray-600 mt-1">Construction work, major renovations, commercial projects</div>
-                            </div>
-                        </div>
-                    </div>
-                )}
 
                 {/* Filters and Sorting */}
                 <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
@@ -464,6 +555,8 @@ const SkipHireSelector = () => {
                     </div>
                 )}
             </div>
+            {/* Help Modal */}
+            <HelpModal />
         </div>
     );
 };
